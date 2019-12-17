@@ -1,8 +1,14 @@
+//LIBRARIES
 #include "SFML/Graphics.hpp"
 #include "SFML/Main.hpp"
 #include <chrono>
-#include "Scene.h"
 #include <Windows.h>
+
+//USER HEADERS
+#include "Scene.h"
+#include "TestChunk.h"
+
+//DEBUG includes
 
 long timeElapsed(std::chrono::steady_clock::time_point timeStart)
 {
@@ -12,10 +18,10 @@ long timeElapsed(std::chrono::steady_clock::time_point timeStart)
 
 int main(int argc, char* argv[])
 {
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Terarbis");
-	window.setVerticalSyncEnabled(true);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(800, 600), "Terarbis");
+	window->setVerticalSyncEnabled(true);
 
-	Scene* currentScene = NULL;
+	Scene* currentScene = new TestChunk();
 	currentScene->initialize();
 
 	//Starting time
@@ -23,6 +29,8 @@ int main(int argc, char* argv[])
 
 	//While run = true, run game
 	bool run = true;
+
+	currentScene->initialize();
 
 	//Game loop
 	while (run)
@@ -45,10 +53,10 @@ int main(int argc, char* argv[])
 			}
 
 			//Clear window
-			window.clear(sf::Color::Black);
+			window->clear(sf::Color::Black);
 
 			//Draw scene
-			if (!currentScene->draw())
+			if (!currentScene->draw(window))
 			{
 				std::string errMsg = currentScene->getErrorMessage();
 				MessageBoxA(NULL, errMsg.c_str(), "ERROR", MB_OK);
@@ -56,7 +64,7 @@ int main(int argc, char* argv[])
 			}
 
 			//Display to window
-			window.display();
+			window->display();
 		}
 	}
 
