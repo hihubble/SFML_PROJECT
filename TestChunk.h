@@ -2,17 +2,28 @@
 #include "Scene.h"
 #include <SFML/Graphics.hpp>
 #include "Chunk.h"
+#include "World.h"
+#include "TileBuilder.h"
+#include "VertexQuads.h"
 
 class TestChunk : public Scene
 {
 private:
+	sf::View camera;
+	sf::RenderWindow* window;
+	float zoom;
+
 	std::string errMsg;
-	Chunk* chunk;
+	sf::Texture* dirt;
+
+	World* world;
+	TileBuilder* tb;
+	VertexQuads* quads;
 public:
 	TestChunk();
-	bool initialize();
+	bool initialize(sf::RenderWindow* window_);
 	bool update(float frameTime);
-	bool draw(sf::RenderWindow* window);
+	bool draw();
 	std::string getErrorMessage();
 };
 

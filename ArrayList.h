@@ -1,4 +1,4 @@
-template <typename Object_type> struct ArrayList
+template <typename Object_type> class ArrayList
 {
 private:
 	Object_type* elements;
@@ -15,7 +15,7 @@ public:
 	int indexOf(Object_type element);
 	void destroy();
 	bool contains(Object_type element);
-	int count();
+	int getCount();
 	void clear();
 };
 
@@ -119,13 +119,14 @@ bool ArrayList<Object_type>::contains(Object_type element)
 	int i = 0;
 	while (i < count)
 	{
-		elements[i] == element ? return true : i++;
+		if (elements[i] == element) return true;
+		else i++;
 	}
 	return false;
 }
 
 template<typename Object_type>
-int ArrayList<Object_type>::count()
+int ArrayList<Object_type>::getCount()
 {
 	return count;
 }

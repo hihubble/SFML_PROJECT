@@ -1,4 +1,5 @@
 #pragma once
+class Chunk;
 #include "Tile.h"
 #define CHUNK_SIZE 16
 
@@ -6,14 +7,17 @@ class Chunk
 {
 private:
 	Tile*** tiles;
-	sf::RenderTexture* renderTexture;
-	sf::Sprite* sprite;
-	bool modified;
+	bool active;
+	VertexQuads* quads;
+	TileBuilder* tileBuilder;
 public:
-	Chunk();
+	Chunk(TileBuilder* tileBuilder_, int x, int y);
 	void setTile(Tile* tile, int x, int y);
-	bool needsRedraw();
+	bool isTile(int x, int y);
+	bool needsUpdate();
 	void update();
-	sf::Sprite* getSprite();
+	sf::VertexArray getQuads();
+	bool isActive();
+	bool modified;
 };
 

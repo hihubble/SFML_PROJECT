@@ -23,6 +23,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TestChunk.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileBuilder.cpp" />
+    <ClCompile Include="TileInfo.cpp" />
+    <ClCompile Include="VertexQuads.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayList.h" />
@@ -30,6 +34,10 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="TestChunk.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileBuilder.h" />
+    <ClInclude Include="TileInfo.h" />
+    <ClInclude Include="VertexQuads.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

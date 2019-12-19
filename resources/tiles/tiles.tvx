@@ -1,0 +1,118 @@
+<Tile>
+	<Name>dirt</Name>
+	<Orientation>
+		<Direction>Normal</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+	</Orientation>
+	<Orientation>
+		<Direction>Top</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+	</Orientation>
+	<Orientation>
+		<Direction>Bottom</Direction>
+
+		<Vertex>0;0;16;12;139;69;19;255</Vertex>
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+	</Orientation>
+	<Orientation>
+		<Direction>Left</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+	</Orientation>
+	<Orientation>
+		<Direction>Right</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+
+	<Orientation>
+		<Direction>LeftTop</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+	</Orientation>
+	<Orientation>
+		<Direction>LeftBottom</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+	</Orientation>
+	<Orientation>
+		<Direction>BottomRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+	<Orientation>
+		<Direction>TopBottom</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+	</Orientation>
+	<Orientation>
+		<Direction>TopRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+	<Orientation>
+		<Direction>LeftRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+
+	<Orientation>
+		<Direction>TopBottomRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+	<Orientation>
+		<Direction>LeftBottomRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+	<Orientation>
+		<Direction>LeftTopRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+	</Orientation>
+	<Orientation>
+		<Direction>LeftTopBottom</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+	</Orientation>
+
+	<Orientation>
+		<Direction>LeftTopBottomRight</Direction>
+
+		<Vertex>0;0;16;16;139;69;19;255</Vertex>
+		<Vertex>0;0;4;16;86;125;70;255</Vertex> Left
+		<Vertex>0;12;16;16;86;125;70;255</Vertex> Bottom
+		<Vertex>12;0;16;16;86;125;70;255</Vertex> Right
+		<Vertex>0;0;16;4;86;125;70;255</Vertex> Top
+	</Orientation>
+</Tile>

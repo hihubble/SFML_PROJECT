@@ -3,6 +3,8 @@
 #include "SFML/Main.hpp"
 #include <chrono>
 #include <Windows.h>
+#include <thread>
+#include <time.h>
 
 //USER HEADERS
 #include "Scene.h"
@@ -13,16 +15,15 @@
 long timeElapsed(std::chrono::steady_clock::time_point timeStart)
 {
 	auto timeNow = std::chrono::steady_clock::now();
-	return std::chrono::duration_cast<std::chrono::microseconds>(timeNow - timeStart).count();
+	return std::chrono::duration_cast<std::chrono::nanoseconds>(timeNow - timeStart).count();
 }
 
 int main(int argc, char* argv[])
 {
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(800, 600), "Terarbis");
-	window->setVerticalSyncEnabled(true);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1700, 900), "Terarbis");
+	//window->setVerticalSyncEnabled(true);
 
 	Scene* currentScene = new TestChunk();
-	currentScene->initialize();
 
 	//Starting time
 	auto timeStart = std::chrono::steady_clock::now();
@@ -30,7 +31,17 @@ int main(int argc, char* argv[])
 	//While run = true, run game
 	bool run = true;
 
-	currentScene->initialize();
+	//Target FPS
+	int fps = 480;
+
+	currentScene->initialize(window);
+
+	// TESTS
+	sf::Text text;
+	sf::Font font;
+	font.loadFromFile("resources/fonts/Minecraft.ttf");
+	text.setFont(font);
+	// ENDTESTS
 
 	//Game loop
 	while (run)
@@ -38,8 +49,8 @@ int main(int argc, char* argv[])
 		//Get elapsed time
 		long elapsedTime = timeElapsed(timeStart);
 
-		//If elapsed time > 16'000 (60fps)
-		if (elapsedTime > 16'000)
+		//If elapsed time > 16'000'000 (60fps)
+		if (elapsedTime >= 1'000'000'000 / fps)
 		{
 			//Last frame time_point = now
 			timeStart = std::chrono::steady_clock::now();
@@ -53,15 +64,19 @@ int main(int argc, char* argv[])
 			}
 
 			//Clear window
-			window->clear(sf::Color::Black);
+			window->clear(sf::Color::Color(135, 206, 235, 0));
 
 			//Draw scene
-			if (!currentScene->draw(window))
+			if (!currentScene->draw())
 			{
 				std::string errMsg = currentScene->getErrorMessage();
 				MessageBoxA(NULL, errMsg.c_str(), "ERROR", MB_OK);
 				break;
 			}
+
+			text.setString(std::to_string(1'000'000'000 / elapsedTime));
+			text.setPosition(0, 0);
+			window->draw(text);
 
 			//Display to window
 			window->display();

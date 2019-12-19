@@ -1,7 +1,9 @@
 #include "Chunk.h"
 
-Chunk::Chunk()
+Chunk::Chunk(TileBuilder* tileBuilder_, int x, int y)
 {
+	tileBuilder = tileBuilder_;
+	quads = new VertexQuads();
 	tiles = new Tile**[CHUNK_SIZE];
 	for (int i = 0; i < CHUNK_SIZE; i++)
 	{
@@ -12,45 +14,48 @@ Chunk::Chunk()
 		}
 	}
 
-	renderTexture = new sf::RenderTexture();
-	renderTexture->create(CHUNK_SIZE * TILE_SIZE, CHUNK_SIZE * TILE_SIZE);
-	sprite = new sf::Sprite();
-
 	modified = true;
+	active = true;
 }
 
 void Chunk::setTile(Tile* tile, int x, int y)
 {
 	tiles[x][y] = tile;
+	modified = true;
 }
 
-bool Chunk::needsRedraw()
+bool Chunk::isTile(int x, int y)
+{
+	return tiles[x][y] != NULL;
+}
+
+bool Chunk::needsUpdate()
 {
 	return modified;
 }
 
 void Chunk::update()
 {
-	renderTexture->clear();
+	quads->vertices.clear();
 	for (int i = 0; i < CHUNK_SIZE; i++)
 	{
 		for (int j = 0; j < CHUNK_SIZE; j++)
 		{
-			if (tiles[i][j] != NULL)
+			if (isTile(i, j))
 			{
-				renderTexture->draw(*tiles[i][j]->getSprite());
-				
+				quads->append(tiles[i][j]->getQuads());
 			}
 		}
 	}
-	renderTexture->display();
-	if(sprite->getTexture() != NULL) sprite->getTexture()->~Texture();
-	sprite->setTexture(renderTexture->getTexture());
-
 	modified = false;
 }
 
-sf::Sprite* Chunk::getSprite()
+sf::VertexArray Chunk::getQuads()
 {
-	return sprite;
+	return quads->vertices;
+}
+
+bool Chunk::isActive()
+{
+	return active;
 }
