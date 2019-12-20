@@ -5,6 +5,7 @@ class World
 {
 private:
 	TileBuilder* tileBuilder;
+	sf::View* camera;
 
 	Tile*** tiles;
 	Chunk*** chunks;
@@ -15,8 +16,10 @@ private:
 	int isTile(int x, int y);
 	void setTile(std::string tileName, int x, int y);
 	void deleteTile(int x, int y);
+
 	void verifyExposition(int x, int y);
 	void verifyAreaExposition(int x, int y);
+
 	void verifyOrientation(int x, int y);
 	void verifyAreaOrientation(int x, int y);
 
@@ -27,7 +30,7 @@ private:
 	void setOrientations();
 	void setExposition();
 public:
-	World(int w, int h);
+	World(sf::View* camera, int w, int h);
 	void update(float frameTime);
 	void draw(sf::RenderWindow* window);
 	void setActivePosition(int x, int y);

@@ -9,12 +9,14 @@
 class TestChunk : public Scene
 {
 private:
-	sf::View camera;
+	sf::View* camera;
 	sf::RenderWindow* window;
 	float zoom;
+	int fps;
 
 	std::string errMsg;
-	sf::Texture* dirt;
+	sf::Text text;
+	sf::Font font;
 
 	World* world;
 	TileBuilder* tb;

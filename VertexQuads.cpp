@@ -5,6 +5,11 @@ VertexQuads::VertexQuads()
 	vertices.setPrimitiveType(sf::Quads);
 }
 
+void VertexQuads::clear()
+{
+	vertices.clear();
+}
+
 void VertexQuads::append(sf::Vertex vertex)
 {
 	vertices.append(vertex);
@@ -18,7 +23,7 @@ void VertexQuads::append(sf::VertexArray vArray)
 	}
 }
 
-/*VertexQuads::~VertexQuads()
+void VertexQuads::destroy()
 {
 	vertices.clear();
-}*/
+}

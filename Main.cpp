@@ -32,15 +32,12 @@ int main(int argc, char* argv[])
 	bool run = true;
 
 	//Target FPS
-	int fps = 480;
+	int fps = 10000;
 
 	currentScene->initialize(window);
 
 	// TESTS
-	sf::Text text;
-	sf::Font font;
-	font.loadFromFile("resources/fonts/Minecraft.ttf");
-	text.setFont(font);
+
 	// ENDTESTS
 
 	//Game loop
@@ -73,10 +70,6 @@ int main(int argc, char* argv[])
 				MessageBoxA(NULL, errMsg.c_str(), "ERROR", MB_OK);
 				break;
 			}
-
-			text.setString(std::to_string(1'000'000'000 / elapsedTime));
-			text.setPosition(0, 0);
-			window->draw(text);
 
 			//Display to window
 			window->display();

@@ -30,6 +30,7 @@ void World::deleteTile(int x, int y)
 		chunks[x / CHUNK_SIZE][y / CHUNK_SIZE]->setTile(NULL, x % CHUNK_SIZE, y % CHUNK_SIZE);
 		tile->~Tile();
 		delete tile;
+		tile = NULL;
 	}
 }
 
@@ -127,7 +128,6 @@ void World::verifyOrientation(int i, int j)
 		{
 			tiles[i][j]->setOrientation("LeftTopBottomRight");
 		}
-		tiles[i][j]->update();
 	}
 }
 
@@ -189,7 +189,7 @@ void World::generateSimple()
 	{
 		for (int j = tileVerticalCount - 1; j >= 0; j--)
 		{
-			if (j < tileVerticalCount / 2)
+			if (j < tileVerticalCount / 4)
 			{
 				if (tiles[i][j + 1] != NULL)
 				{
@@ -251,8 +251,10 @@ void World::setExposition()
 	}
 }
 
-World::World(int w, int h)
+World::World(sf::View* camera_, int w, int h)
 {
+	camera = camera_;
+
 	worldWidth = w;
 	worldHeight = h;
 
@@ -269,30 +271,47 @@ World::World(int w, int h)
 
 void World::update(float frameTime)
 {
-	for (int i = 0; i < worldWidth; i++)
-	{
-		for (int j = 0; j < worldHeight; j++)
-		{
-			if (chunks[i][j]->isActive() && chunks[i][j]->needsUpdate())
-			{
-				chunks[i][j]->update();
-			}
-		}
-	}
 }
 
 void World::draw(sf::RenderWindow* window)
 {
+	int cameraLeft = camera->getCenter().x - (camera->getSize().x / 2);
+	int cameraRight = cameraLeft + camera->getSize().x;
+	int cameraTop = camera->getCenter().y - (camera->getSize().y / 2);
+	int cameraBottom = cameraTop + camera->getSize().y;
+	int chunkRealSize = CHUNK_SIZE * TILE_SIZE;
+
+	Chunk* current;
 	for (int i = 0; i < worldWidth; i++)
 	{
 		for (int j = 0; j < worldHeight; j++)
 		{
-			if (chunks[i][j]->isActive())
+			current = chunks[i][j];
+
+			if (i * chunkRealSize > cameraRight)
 			{
+				current->setActive(false);
+			}
+			else if ((i + 1) * chunkRealSize < cameraLeft)
+			{
+				current->setActive(false);
+			}
+			else if (j * chunkRealSize > cameraBottom)
+			{
+				current->setActive(false);
+			}
+			else if ((j + 1) * chunkRealSize < cameraTop)
+			{
+				current->setActive(false);
+			}
+			else
+			{
+				current->setActive(true);
 				window->draw(chunks[i][j]->getQuads());
 			}
 		}
 	}
+	current = NULL;
 }
 
 void World::setActivePosition(int x, int y)

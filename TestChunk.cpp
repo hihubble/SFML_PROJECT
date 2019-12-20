@@ -9,13 +9,16 @@ bool TestChunk::initialize(sf::RenderWindow* window_)
 {
 	window = window_;
 
-	world = new World(30, 15);
+	zoom = 0.5;
 
-	zoom = 1;
+	camera = new sf::View();
+	camera->setCenter(1700, 750);
+	camera->setSize(1700 * zoom, 900 * zoom);
 
-	camera.setCenter(1700, 750);
-	camera.setSize(1700 * zoom, 900 * zoom);
-	window->setView(camera);
+	world = new World(camera, 10, 5);
+
+	font.loadFromFile("resources/fonts/Minecraft.ttf");
+	text.setFont(font);
 
 	return true;
 }
@@ -25,19 +28,19 @@ bool TestChunk::update(float frameTime)
 	float frameRatio = frameTime / 16'000'000;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		camera.move(-10 * frameRatio * zoom, 0);
+		camera->move(-10 * frameRatio * zoom, 0);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		camera.move(10 * frameRatio * zoom, 0);
+		camera->move(10 * frameRatio * zoom, 0);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
-		camera.move(0, -10 * frameRatio * zoom);
+		camera->move(0, -10 * frameRatio * zoom);
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		camera.move(0, 10 * frameRatio * zoom);
+		camera->move(0, 10 * frameRatio * zoom);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
@@ -49,10 +52,12 @@ bool TestChunk::update(float frameTime)
 		zoom *= 1.005;
 	}
 
-	camera.setSize(1700 * zoom, 900 * zoom);
-	window->setView(camera);
+	camera->setSize(1700 * zoom, 900 * zoom);
+	window->setView(*camera);
 
 	world->update(frameTime);
+
+	fps = 1'000'000'000 / frameTime;
 
 	return true;
 }
@@ -60,6 +65,11 @@ bool TestChunk::update(float frameTime)
 bool TestChunk::draw()
 {
 	world->draw(window);
+
+	text.setString(std::to_string(fps));
+	text.setScale(zoom, zoom);
+	text.setPosition(camera->getCenter().x - (camera->getSize().x / 2), camera->getCenter().y - (camera->getSize().y / 2));
+	window->draw(text);
 
 	return true;
 }

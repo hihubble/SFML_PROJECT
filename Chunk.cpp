@@ -1,5 +1,27 @@
 #include "Chunk.h"
 
+void Chunk::load()
+{
+	for (int i = 0; i < CHUNK_SIZE; i++)
+	{
+		for (int j = 0; j < CHUNK_SIZE; j++)
+		{
+			if (isTile(i, j)) tiles[i][j]->load();
+		}
+	}
+}
+
+void Chunk::unload()
+{
+	for (int i = 0; i < CHUNK_SIZE; i++)
+	{
+		for (int j = 0; j < CHUNK_SIZE; j++)
+		{
+			if (isTile(i, j)) tiles[i][j]->unload();
+		}
+	}
+}
+
 Chunk::Chunk(TileBuilder* tileBuilder_, int x, int y)
 {
 	tileBuilder = tileBuilder_;
@@ -58,4 +80,23 @@ sf::VertexArray Chunk::getQuads()
 bool Chunk::isActive()
 {
 	return active;
+}
+
+void Chunk::setActive(bool active_)
+{
+	if (active && !&active_)
+	{
+		unload();
+	}
+	else if (!active && active_)
+	{
+		load();
+	}
+
+	active = active_;
+
+	if (active && modified)
+	{
+		update();
+	}
 }

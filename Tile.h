@@ -19,6 +19,8 @@ private:
 public:
 	Tile(TileBuilder* tileBuilder, Chunk* chunk, std::string tile_name, std::string tile_orientation, int tile_x, int tile_y);
 	void update();
+	void load();
+	void unload();
 	sf::VertexArray getQuads();
 	bool isExposed();
 	void setExposed(bool exposed);
